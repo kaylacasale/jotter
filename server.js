@@ -28,7 +28,8 @@ const fs = require('fs');
 //* define the PORT
 //* PORT ~ entry point to access server
 //* generally over 3000 = since most lower ports used by lower applications
-const PORT = 3001;
+// const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 //* sets up the Express app to handle data parsing (middleware)
 //* allows us to send and parse objects from the front end to the backend
