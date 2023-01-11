@@ -1,4 +1,4 @@
-# Note Taker App
+# Note Taker App 📝
 An easy-to-use and convenient free Command Line Application to write and save your notes on your browser.
 
 ## jotter
@@ -45,12 +45,17 @@ The Jotter application should respond:
 ## Focus Points
 Building the back end and connecting to the front end using an API from inside Express. 
 
-> REST APIs
+> REST APIs and Databases (JSON)
     >> Calling an API from an Express application
+
     >> Handling and using data returned by the API created
+
     >> Working with API response codes and ports in server
+
     >> Interacting with the data from the browser through APIs
+
     >> Working with Express and Node.js to interact with the API
+
     >> Validating, handling responses, and catching errors
 
 
