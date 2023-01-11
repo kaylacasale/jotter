@@ -46,8 +46,8 @@ const getNotes = () =>
     headers: {
       'Content-Type': 'application/json',
     },
-  })
-console.log('got note')
+  });
+
 // .then((res) => res.json())
 // .then((data) => {
 //   data.forEach(element => {

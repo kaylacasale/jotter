@@ -7,7 +7,8 @@ const express = require('express');
 //* require path package built into node and setting that equal to variable
 //* require inquirer package for potential use (writing to, appending to...content to file)
 const path = require('path')
-const inquirer = require('inquirer')
+// const inquirer = require('inquirer')
+const util = require('util');
 
 const uuid = require('./helpers/uuid')
 
@@ -15,7 +16,7 @@ const uuid = require('./helpers/uuid')
 //* initialize our express app
 const app = express();
 
-//* require the JSON file and assign it to a variable called db
+//* require the JSON file and assign it to a variable called dbData
 //* for json files, do not need to export objects (reads objects directly from file)
 
 const dbData = require('./db/db.json');
@@ -39,24 +40,54 @@ app.use(express.static('public'));
 
 
 //* creates link for '...localhost/3001'
-app.get('/', (req, res) => res.send('Navigate to /index or /notes'));
+//app.get('/', (req, res) => res.send('Navigate to /index or /notes'));
 
 //* send to public/index.html file instead of opening in default browser to send to server first and then use local host url 
 //* dirname = string the defines path from user c-drive
-app.get('/index', (req, res) =>
+app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname, 'public/index.html'))
 );
 
 app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, 'public/notes.html'))
 );
+//* wait for info to happen first
+const readFromFile = util.promisify(fs.readFile);
+
+const writeToFile = (destination, content) =>
+    fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
+        err ? console.error(err) : console.info(`\nData written to ${destination}`)
+    );
+
+const readAndAppend = (content, file) => {
+    fs.readFile(file, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+        } else {
+            const parsedData = JSON.parse(data)
+            parsedData.push(content);
+            writeToFile(file, parsedData);
+        }
+    });
+};
+
+// const writeToFile = (destination, content) =>
+// fs.writeFile(destination, JSON.stringify(content, null, 4),(err) =>
 
 //* send back dbData equal to array of objects in db.json file
 app.get('/api/notes', (req, res) => {
     console.info(`${req.method} request received to get notes`)
-    console.log(req.body)
-    return res.json(dbData);
+
+    // console.log(req.body)
+    // res.json(`${req.method} request recieved to get notes`)
+    // readFromFile('./db/db.json').then((data) => res.json)
+
+    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)))
+    // return res.json(dbData);
+
 })
+
+
 
 //* req.body = data sent from the front end to the backend when post request is made
 app.post('/api/notes', (req, res) => {
@@ -65,9 +96,6 @@ app.post('/api/notes', (req, res) => {
     const { title, text } = req.body;
     console.log(title, text)
 
-
-
-
     if (title && text) {
         const newNote = {
             title,
@@ -75,29 +103,34 @@ app.post('/api/notes', (req, res) => {
             id: uuid(),
         }
 
-        const noteString = JSON.stringify(newNote);
+        readAndAppend(newNote, './db/db.json');
+        res.json(`Note added successfully`);
 
-        fs.writeFile(`./db/db.json`, noteString, (err) =>
-            err
-                ? console.error(err)
-                : console.log(
-                    `Note for ${newNote.title} has been written to JSON file`
-                ))
 
-        const response = {
-            statis: 'success',
-            body: newNote,
-        }
+        // const noteString = JSON.stringify(newNote);
 
-        console.log(response)
-        res.status(201).json(response);
+        // fs.writeFile(`./db/db.json`, noteString, (err) =>
+        //     err
+        //         ? console.error(err)
+        //         : console.log(
+        //             `Note for ${newNote.title} has been written to JSON file`
+        //         ))
+
+        // const response = {
+        //     status: 'success',
+        //     body: newNote,
+        // }
+
+        // console.log(response)
+        // res.status(201).json(response);
 
     } else {
-        res.status(500).json('Error in posting review');
+        res.status(500).json('Error in posting note');
     }
     //res.json(`New note for ${newNote.title} has been added`)
 
 });
+
 
 
 
