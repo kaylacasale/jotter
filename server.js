@@ -107,29 +107,32 @@ app.post('/api/notes', (req, res) => {
         res.json(`Note added successfully`);
 
 
-        // const noteString = JSON.stringify(newNote);
-
-        // fs.writeFile(`./db/db.json`, noteString, (err) =>
-        //     err
-        //         ? console.error(err)
-        //         : console.log(
-        //             `Note for ${newNote.title} has been written to JSON file`
-        //         ))
-
-        // const response = {
-        //     status: 'success',
-        //     body: newNote,
-        // }
-
-        // console.log(response)
-        // res.status(201).json(response);
-
     } else {
         res.status(500).json('Error in posting note');
     }
     //res.json(`New note for ${newNote.title} has been added`)
 
 });
+
+app.delete('/api/notes/:id', (req, res) => {
+    console.log(`${req.method} request recieved to delete a note`)
+
+    readFromFile('./db/db.json').then((data) => {
+        let oldNote = JSON.parse(data) //to make in array
+        let newNote = oldNote.filter((note) =>
+            note.id !== req.params.id
+
+        )
+        writeToFile('./db/db.json', newNote)
+        res.json(`${req.params.id} has been deleted`)
+
+
+    })
+
+
+
+
+})
 
 
 
