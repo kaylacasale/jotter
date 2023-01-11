@@ -132,12 +132,12 @@ app.delete('/api/notes/:id', (req, res) => {
     console.log(`${req.method} request recieved to delete a note`)
 
     readFromFile('./db/db.json').then((data) => {
-        let oldNote = JSON.parse(data) //* to make into array of objects
-        let newNote = oldNote.filter((note) => //* filter the old note to create a new note excluding notes where who's id is associated with delete response from pressing trash can button on HTML
+        let oldNote = JSON.parse(data) //* to make into array of objects so JS can read
+        let newNote = oldNote.filter((note) => //* filter the old note to create a new note excluding notes where who's id is associated with delete response from pressing trash can button on notes.html
             note.id !== req.params.id
 
         )
-        writeToFile('./db/db.json', newNote) //* write new filtered notes (excluding deleted note) to JSON file (stringified in 'writeToFile' function above)
+        writeToFile('./db/db.json', newNote) //* write new filtered notes (excluding deleted note) to JSON file (stringified in 'writeToFile' function defined above)
         res.json(`${req.params.id} has been deleted`)
 
 
