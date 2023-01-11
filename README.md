@@ -27,6 +27,34 @@ The Jotter application should respond:
 
 4. Press cmd + select or copy and paste the link provided to open this application in the browser
 
+## Built With
+> HTML
+> CSS
+> JavaScript
+
+* Node.js
+    * Express.js
+        * npm
+            * path
+            * util
+            * uuid
+* Bootstrap
+* Heroku (for deployment)
+* Postman (for development/testing)
+
+## Focus Points
+Building the back end and connecting to the front end using an API from inside Express. 
+
+> REST APIs
+    >> Calling an API from an Express application
+    >> Handling and using data returned by the API created
+    >> Working with API response codes and ports in server
+    >> Interacting with the data from the browser through APIs
+    >> Working with Express and Node.js to interact with the API
+    >> Validating, handling responses, and catching errors
+
+
+
 
 
 
