@@ -27,6 +27,11 @@ The Jotter application should respond:
 
 4. Press cmd + select or copy and paste the link provided to open this application in the browser
 
+## Screens (Mock-Up)
+
+![Jotter Wireframe](https://user-images.githubusercontent.com/115776118/211790060-536e8510-8157-4ecf-92bf-7729f5559be1.png)
+
+
 ## Built With
 > HTML
 > CSS
@@ -57,6 +62,8 @@ Building the back end and connecting to the front end using an API from inside E
     >> Working with Express and Node.js to interact with the API
 
     >> Validating, handling responses, and catching errors
+
+
 
 
 
