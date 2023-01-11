@@ -1,17 +1,17 @@
 [
     {
-        "title": "kayla",
-        "text": "says hi",
-        "id": "81ce"
+        "title": "Heroku Documentation URL",
+        "text": "Installing: https://devcenter.heroku.com/articles/heroku-cli#troubleshooting-the-heroku-cli\n\nCreating and deploying to Heroku: https://coding-boot-camp.github.io/full-stack/heroku/heroku-deployment-guide\n",
+        "id": "f677"
     },
     {
-        "title": "Homework",
-        "text": "Module #10 assignment due tonight",
-        "id": "3faf"
+        "title": "Funny Jokes",
+        "text": "Why did the functions stop calling each other?\n\nBecause they had constant arguments. 🤣",
+        "id": "561f"
     },
     {
-        "title": "Tutor Session",
-        "text": "From 4:00pm - 5:00pm",
-        "id": "e12d"
+        "title": "Module 12 Assignment",
+        "text": "Due this Sunday 1/15\n\nTutor's quick comments:\n- Create department tables with id & name\n- Create Role table with id, title, & salary\n- Department_id, etc.",
+        "id": "c07c"
     }
 ]
