@@ -4,22 +4,25 @@
 
 //* require express package and set it equal to variable (express dependency in package.json)
 const express = require('express');
-//* require path package built into node and setting that equal to variable
-//* require inquirer package for potential use (writing to, appending to...content to file)
+//* require path package built into node and set that equal to variable
 const path = require('path')
+
+// require inquirer package for potential use (writing to, appending to...content to file)
 // const inquirer = require('inquirer')
 const util = require('util');
 
+//* require a function from helpers folder that generates a string of random numbers and letters that will serve as the note id
 const uuid = require('./helpers/uuid')
-
 
 //* initialize our express app
 const app = express();
 
-//* require the JSON file and assign it to a variable called dbData
+//* require the JSON database file and assign it to a variable called dbData (not necessary)
 //* for json files, do not need to export objects (reads objects directly from file)
 
 const dbData = require('./db/db.json');
+
+//* require the fs module in node to interact with the file system (e.g. read, write, append, etc.) 
 const fs = require('fs');
 
 //* define the PORT
@@ -32,33 +35,40 @@ const PORT = 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//* define middleware
+//* define middleware cont.
 //* any static asset I want to be served from the public folder (so we don't have write whole path each time through public folder)
-
-//* linking public folder with other links to various files
+//* linking public folder with other links to various files in routes
+//* aka invoke app.use() and serve static files from the '/public' folder 
 app.use(express.static('public'));
 
 
-//* creates link for '...localhost/3001'
-//app.get('/', (req, res) => res.send('Navigate to /index or /notes'));
-
 //* send to public/index.html file instead of opening in default browser to send to server first and then use local host url 
-//* dirname = string the defines path from user c-drive
+//* 'dirname' = string the defines path from user c-drive
+
+//* GET request to URL ending in '/' which will hit this route to join '/' to path of base URL and redirect user to index.html file in public folder upon entering 'node server.js' in terminal
+//* aka GET route for homepage
 app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname, 'public/index.html'))
 );
 
+//* GET route for notes page
 app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, 'public/notes.html'))
 );
-//* wait for info to happen first
+//* wait for info to be read from JSON file in promise
+//* aka Promise version of fs.readFile
 const readFromFile = util.promisify(fs.readFile);
 
+//* function to write data to JSON file given a destination (dbData or './db/db.json') and content (note object called 'newNote below')
+//* @param {string} destination - the JSON file ('./db/db.json') writing note to
+//* @param {object} content - the content ('newNote') that will be written to the JSON file (stringify to create a JSON string out of the JS array of objects)
 const writeToFile = (destination, content) =>
     fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
-        err ? console.error(err) : console.info(`\nData written to ${destination}`)
+        err ? console.error(err) : console.info(`\nNote written to ${destination}`)
     );
 
+//* function to read data from the JSON file and append note content
+//* @param {object} content - the content that will be appended to (parse to deserialize a JSON string into a JS object)
 const readAndAppend = (content, file) => {
     fs.readFile(file, 'utf8', (err, data) => {
         if (err) {
@@ -73,8 +83,8 @@ const readAndAppend = (content, file) => {
 
 // const writeToFile = (destination, content) =>
 // fs.writeFile(destination, JSON.stringify(content, null, 4),(err) =>
-
-//* send back dbData equal to array of objects in db.json file
+//* GET Route for retrieving all the notes (stored in the db.json file)
+//* send back dbData equal to array of objects in db.json file so JS could read file (converted from string)
 app.get('/api/notes', (req, res) => {
     console.info(`${req.method} request received to get notes`)
 
@@ -88,14 +98,18 @@ app.get('/api/notes', (req, res) => {
 })
 
 
-
+//* POST Route for submitting notes
 //* req.body = data sent from the front end to the backend when post request is made
+//* add 'id' property that will accept content generated from uuid helper function that generates a random string
 app.post('/api/notes', (req, res) => {
+    //* log that POST request was receieved
     console.log(`${req.method} request recieved to add new notes`)
 
+    //* Destructuring assignment for the items in req.body
     const { title, text } = req.body;
     console.log(title, text)
 
+    //* newNote = variable for the object we will save
     if (title && text) {
         const newNote = {
             title,
@@ -118,26 +132,19 @@ app.delete('/api/notes/:id', (req, res) => {
     console.log(`${req.method} request recieved to delete a note`)
 
     readFromFile('./db/db.json').then((data) => {
-        let oldNote = JSON.parse(data) //to make in array
-        let newNote = oldNote.filter((note) =>
+        let oldNote = JSON.parse(data) //* to make into array of objects
+        let newNote = oldNote.filter((note) => //* filter the old note to create a new note excluding notes where who's id is associated with delete response from pressing trash can button on HTML
             note.id !== req.params.id
 
         )
-        writeToFile('./db/db.json', newNote)
+        writeToFile('./db/db.json', newNote) //* write new filtered notes (excluding deleted note) to JSON file (stringified in 'writeToFile' function above)
         res.json(`${req.params.id} has been deleted`)
 
 
     })
 
 
-
-
 })
-
-
-
-
-
 
 
 
