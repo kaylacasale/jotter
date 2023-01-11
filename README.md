@@ -46,6 +46,7 @@ The Jotter application should respond:
 * Bootstrap
 * Heroku (for deployment)
 * Postman (for development/testing)
+* Adobe XD (design wireframe)
 
 ## Focus Points
 Building the back end and connecting to the front end using an API from inside Express. 
