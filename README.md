@@ -1,5 +1,5 @@
 # Note Taker App 📝
-An easy-to-use and convenient free application to write and save your notes on your browser.
+An free, easy-to-use, and convenient application to write and save your notes on your browser.
 
 ## jotter
 You can jot, save, and delete any note that comes to mind. From a quick thought or idea to lists, images, and web links, Jotter makes it easy to document and access your notes.
