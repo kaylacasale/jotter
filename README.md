@@ -9,7 +9,11 @@ This online application allows users to easily create, access, discard and share
 
 You must have Node.js to install the npm package and require Express.js using CLI.
 
-## Installation
+## Usage
+
+**Link to Deployed Application**: https://jotter-notetakerapp.herokuapp.com/
+
+<!-- ## Installation
 1. To clone this repository to your local device:
 > Enter `git clone <URL>` into the command-line
 
@@ -25,7 +29,7 @@ Once the repository has been cloned locally and all packages have been installed
 The Jotter application should respond:
 `Jotter app listening at 'http://localhost:3001'`
 
-4. Press cmd + select or copy and paste the link provided to open this application in the browser
+4. Press cmd + select or copy and paste the link provided to open this application in the browser -->
 
 ## Screens (Mock-Up)
 
