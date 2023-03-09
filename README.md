@@ -4,6 +4,17 @@ An free, easy-to-use, and convenient application to write and save your notes on
 ## jotter
 You can jot, save, and delete any note that comes to mind. From a quick thought or idea to lists, images, and web links, Jotter makes it easy to document and access your notes.
 
+## Table of Contents
+* [Description](#description)
+* [Usage](#usage)
+* [Deck](#deck)
+* [Visual Wireframe](#visual-wireframe)
+* [Mockup](#mockup)
+* [Built With](#built-with)
+* [Mockup](#mockup)
+* [Focus Points](#focus-points)
+* [Deck](#deck)
+
 ## Description
 This online application allows users to easily create, access, discard and share notes with others who have the same link and from any device. 
 
@@ -31,10 +42,12 @@ The Jotter application should respond:
 
 4. Press cmd + select or copy and paste the link provided to open this application in the browser -->
 
-## Screens (Mock-Up)
+## Visual Wireframe
 
 ![Jotter Wireframe](https://user-images.githubusercontent.com/115776118/211790060-536e8510-8157-4ecf-92bf-7729f5559be1.png)
 
+## Mockup
+![Mockup](https://media.giphy.com/media/3C9NlxmNLEOQ0kbf7j/giphy.gif "Notetaker App Screens")
 
 ## Built With
 > HTML
@@ -70,7 +83,15 @@ Building the back end and connecting to the front end using an API from inside E
 
 
 
-
+## Deck
+![Cover](public/assets/images/jotter-1.png)
+![Saying](public/assets/images/jotter-2.png)
+![Description](public/assets/images/jotter-3.png)
+![View Notes](public/assets/images/jotter-4.png)
+![Add Notes](public/assets/images/jotter-5.png)
+![Save Notes](public/assets/images/jotter-6.png)
+![Delete Notes](public/assets/images/jotter-7.png)
+![Thank you](public/assets/images/jotter-9.png)
 
 
 
